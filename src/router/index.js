@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import BookingSingle from "@/views/BookingSingle";
+import Homepage from "../views/Homepage";
 
 Vue.use(VueRouter)
 
@@ -25,6 +26,11 @@ const routes = [
     path: "/booking",
     name: "BookingSingle",
     component: BookingSingle
+  },
+  {
+    path: "/home",
+    name: "Homepage",
+    component: Homepage
   }
 ]
 

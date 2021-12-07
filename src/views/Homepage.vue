@@ -4,22 +4,40 @@
 
       <video src="Surf_video.mp4" muted autoplay loop></video>
       <div class="overlay">
-        <div class="text">
-          <h2 class="h">Unforgettable Surf Experience</h2>
-          <h2>Fuerteventura Awaits</h2>
-          <p>One of the most amazing places to learn surfing and up your skill</p>
-        </div>
       </div>
-
+      <div class="text">
+        <h2>Unforgettable Surf Experience</h2>
+        <h3>Fuerteventura Awaits</h3>
+      </div>
     </section>
 
-    <button @booking="booking()">Book Your Experience Now</button>
+    <section>
+      <div class="button">
+        <v-btn
+            width=300
+            height="75"
+            depressed
+            elevation="30"
+            raised
+            rounded
+            x-large
+        >Book Your Experience Now
+        </v-btn>
+        <v-btn
+            width=300
+            height="75"
+            depressed
+            elevation="30"
+            raised
+            rounded
+            x-large
+            color="blue"
+        >Book Your Group Experience Now
+        </v-btn>
+      </div>
+    </section>
 
-    <ul class="social-icon">
-      <li><img src="facebook.png" alt=""></li>
-      <li><img src="instagram.png" alt=""></li>
 
-    </ul>
   </v-container>
 </template>
 
@@ -37,7 +55,7 @@ export default {
 }
 
 .showcase {
-  position: absolute;
+  position: relative;
   right: 0;
   width: 100%;
   min-height: 100vh;
@@ -48,21 +66,6 @@ export default {
   background: antiquewhite;
   color: blue;
   z-index: 2;
-}
-
-.showcase header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 40px 100px;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #c48a0f;
-  font-family: "Bauhaus 93";
-  font-size: x-large;
 }
 
 .showcase video {
@@ -81,33 +84,45 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-
 }
 
 .text {
-  /*position: relative;*/
-  /*z-index: 10;*/
-  z-index: 1000;
-  display: block;
-  align-items: center;
-  justify-content: space-between;
+  position: center;
+  z-index: 10;
+  margin: auto;
 }
 
-botton {
+.text h2 {
+  color: #c48a0f;
   font-family: "Bauhaus 93";
-  color: rgba(250, 222, 118, 0.99);
+  font-size: 5em;
+  font-weight: 800;
+  line-height: 1em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+h3 {
+  color: #c48a0f;
+  font-family: "Bauhaus 93";
+  font-size: 3em;
+  font-weight: 600;
+  line-height: 1em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 15px;
 }
 
 section {
   font-family: "Bauhaus 93";
-  font-size: large;
+  /*font-size: large;*/
 }
 
-
-h2 {
-  color: #c48a0f;
-  font-family: "Bauhaus 93";
-  font-size: large;
+.button {
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  size: 3em;
 }
 
 

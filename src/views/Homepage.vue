@@ -12,6 +12,36 @@
     </section>
 
     <section>
+      <div>
+        <p>Surf
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+          dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+          commodo consequat. Duis aute irure dolor in reprehenderit in volu</p>
+        <img class= "image"
+             src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80">
+
+        <p>Windsurf
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+          dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+          commodo consequat. Duis aute irure dolor in reprehenderit in volu</p>
+        <img class="image"
+             src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80">
+
+        <p>Kitesurf
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+          dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+          commodo consequat. Duis aute irure dolor in reprehenderit in volu</p>
+        <img class="image"
+             src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80">
+
+
+      </div>
+
+
+    </section>
+
+
+    <section>
       <div class="button">
         <v-btn
             width=300
@@ -24,7 +54,6 @@
         >Book Your Experience Now
         </v-btn>
         <v-btn
-            width=300
             height="75"
             depressed
             elevation="30"
@@ -43,7 +72,9 @@
 
 <script>
 export default {
-  name: "Homepage"
+// data:
+
+
 }
 </script>
 
@@ -94,7 +125,7 @@ export default {
 
 .text h2 {
   color: #c48a0f;
-  font-family: "Bauhaus 93";
+  /*font-family: "Bauhaus 93";*/
   font-size: 5em;
   font-weight: 800;
   line-height: 1em;
@@ -104,7 +135,7 @@ export default {
 
 h3 {
   color: #c48a0f;
-  font-family: "Bauhaus 93";
+  /*font-family: "Bauhaus 93";*/
   font-size: 3em;
   font-weight: 600;
   line-height: 1em;
@@ -114,7 +145,8 @@ h3 {
 }
 
 section {
-  font-family: "Bauhaus 93";
+  /*font-family: "Bauhaus 93";*/
+  font-family: sans-serif;
   /*font-size: large;*/
 }
 
@@ -124,6 +156,11 @@ section {
   justify-content: space-around;
   size: 3em;
 }
+
+.image {
+  width: 350px;
+}
+
 
 
 </style>

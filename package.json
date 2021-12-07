@@ -7,11 +7,15 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "-": "^0.0.1",
+    "@vue/cli": "^4.5.15",
     "axios": "^0.24.0",
+    "g": "^2.0.1",
     "v-video-embed": "^1.0.8",
     "vue": "^2.6.11",
     "vue-axios": "^3.4.0",
     "vue-router": "^3.2.0",
+    "vue-video": "^0.1.7",
     "vue-videobg": "^2.0.0",
     "vuetify": "^2.4.0"
   },

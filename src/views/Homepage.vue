@@ -9,7 +9,7 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
       </v-col>
       <v-col align="center" cols="12" md="6">
-        <v-img class="radius" height="350" max-width="300" src="https://marvel-b1-cdn.bc0a.com/f00000000104050/www.monsterenergy.com/media/uploads_image/2016/05/22/755/500/8f03b7f699a9e7fc527676a80c5dce92.jpg?mod=v1_e77e63ed868019f4c5a56e2a7c532710"></v-img>
+        <v-img height="350" max-width="300" src="https://marvel-b1-cdn.bc0a.com/f00000000104050/www.monsterenergy.com/media/uploads_image/2016/05/22/755/500/8f03b7f699a9e7fc527676a80c5dce92.jpg?mod=v1_e77e63ed868019f4c5a56e2a7c532710"></v-img>
       </v-col>
     </v-row>
     <v-row class="ma-10">

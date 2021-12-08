@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import BookingSingle from "@/views/BookingSingle";
 import Homepage from "../views/Homepage";
+import BookingGroup from "@/views/BookingGroup";
+import BookingConfirmation from "@/views/BookingConfirmation";
+import AdminView from "@/views/AdminView";
 
 Vue.use(VueRouter)
 
@@ -23,7 +26,7 @@ const routes = [
     }
   },
   {
-    path: "/booking",
+    path: "/book",
     name: "BookingSingle",
     component: BookingSingle
   },
@@ -31,6 +34,21 @@ const routes = [
     path: "/home",
     name: "Homepage",
     component: Homepage
+  },
+  {
+    path: "/bookgroup",
+    name: "BookingGroup",
+    component: BookingGroup
+  },
+  {
+    path: "/bookingconfirmation",
+    name: "BookingConfirmation",
+    component: BookingConfirmation
+  },
+  {
+    path: "/admin",
+    name:"AdminView",
+    component: AdminView
   }
 ]
 

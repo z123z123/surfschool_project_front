@@ -77,7 +77,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-btn>Book</v-btn>
+          <v-btn v-on:click="confirmation()">Book</v-btn>
         </v-row>
       </v-col>
     </v-row>
@@ -85,13 +85,19 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   name: "BookingSingle",
   data: () => ({
     items: ["Surf", "Windsurf", "Kitesurf"],
     levels: ["Beginner", "Intermediate", "Advanced"]
   }),
-
+  methods: {
+    confirmation: function (){
+      router.push({name: "BookingConfirmation"});
+    }
+  }
 }
 </script>
 

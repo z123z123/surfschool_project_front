@@ -25,16 +25,18 @@
             </div>
           </v-col>
           <v-col cols="12" md="6">
-            <img class="description-image"
-                 src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80">
+            <div class="surf_image">
+              <div></div>
+            </div>
           </v-col>
         </v-row>
       </div>
       <div class="surf-description">
         <v-row>
           <v-col cols="12" md="6">
-            <img class="description-image description-image-middle"
-                 src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80">
+            <div MAMAMA PAPAPAP class="kitesurf_image">
+              <div></div>
+            </div>
           </v-col>
           <v-col cols="12" md="6">
             <div class="description-text-middle">
@@ -61,8 +63,9 @@
             </div>
           </v-col>
           <v-col cols="12" md="6">
-            <img class="description-image"
-                 src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80">
+            <div class="windsurf_image">
+              <div></div>
+             </div>
           </v-col>
         </v-row>
       </div>
@@ -77,14 +80,14 @@
         <v-col cols="12" md="6">
           <div class="button">
             <v-btn v-on:click="bookSingle()"
-                width="350"
-                height="75"
-                depressed
-                elevation="30"
-                raised
-                rounded
-                x-large
-                padding="5"
+                   width="350"
+                   height="75"
+                   depressed
+                   elevation="30"
+                   raised
+                   rounded
+                   x-large
+                   padding="5"
             >Book Your Experience Now
             </v-btn>
           </div>
@@ -92,14 +95,14 @@
         <v-col cols="12" md="6">
           <div class="button">
             <v-btn v-on:click="bookGroup()"
-                width="350"
-                height="75"
-                depressed
-                elevation="30"
-                raised
-                rounded
-                x-large
-                padding="5"
+                   width="350"
+                   height="75"
+                   depressed
+                   elevation="30"
+                   raised
+                   rounded
+                   x-large
+                   padding="5"
             >Book Group Experience Now
             </v-btn>
           </div>
@@ -151,10 +154,10 @@ export default {
     }
   },
   methods: {
-    bookSingle: function (){
+    bookSingle: function () {
       router.push({name: "BookingSingle"});
     },
-    bookGroup: function (){
+    bookGroup: function () {
       router.push({name: "BookingGroup"});
     }
   }
@@ -167,11 +170,13 @@ export default {
   margin: 0;
   padding: 0;
 }
+
 section {
   /*font-family: "Bauhaus 93";*/
   font-family: sans-serif;
   /*font-size: large;*/
 }
+
 .showcase {
   position: relative;
   right: 0;
@@ -256,6 +261,7 @@ h3 {
 .booking-section {
   margin: 15%;
 }
+
 .button {
   text-align: center;
   display: flex;
@@ -264,5 +270,47 @@ h3 {
   margin-top: 10%;
 }
 
+.surf_image {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  margin: auto 0;
+  margin-left: 35%;
+  overflow: hidden;
+  position: relative;
+}
+
+.surf_image div {
+  width: 100%;
+  height: 100%;
+  background: url("https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: all 1s;
+}
+.windsurf_image div {
+  width: 100%;
+  height: 100%;
+  background: url("https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: all 1s;
+}
+
+.kitesurf_image div {
+  width: 100%;
+  height: 100%;
+  background: url("https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: all 1s;
+}
+
+.surf_image div:hover {
+  transform: scale(1.5);
+}
 
 </style>

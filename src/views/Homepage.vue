@@ -34,9 +34,7 @@
       <div class="surf-description">
         <v-row>
           <v-col cols="12" md="6">
-            <div MAMAMA PAPAPAP class="kitesurf_image">
-              <div></div>
-            </div>
+            <div class="description-text">
           </v-col>
           <v-col cols="12" md="6">
             <div class="description-text-middle">

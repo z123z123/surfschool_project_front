@@ -34,7 +34,9 @@
       <div class="surf-description">
         <v-row>
           <v-col cols="12" md="6">
-            <div class="description-text">
+            <div class="surf_image">
+              <div class="kitesurf"></div>
+            </div>
           </v-col>
           <v-col cols="12" md="6">
             <div class="description-text-middle">
@@ -61,9 +63,9 @@
             </div>
           </v-col>
           <v-col cols="12" md="6">
-            <div class="windsurf_image">
-              <div></div>
-             </div>
+            <div class="surf_image">
+              <div class="windsurf"></div>
+            </div>
           </v-col>
         </v-row>
       </div>
@@ -148,9 +150,10 @@ export default {
         'mdi-twitter',
         'mdi-linkedin',
         'mdi-instagram',
-      ]
+      ],
     }
   },
+
   methods: {
     bookSingle: function () {
       router.push({name: "BookingSingle"});
@@ -278,36 +281,55 @@ h3 {
   position: relative;
 }
 
+.kitesurf_image {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  margin: auto 0;
+  margin-left: 35%;
+  overflow: hidden;
+  position: relative;
+}
+
+.windsurf_image {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  margin: auto 0;
+  margin-left: 35%;
+  overflow: hidden;
+  position: relative;
+}
+
 .surf_image div {
   width: 100%;
   height: 100%;
-  background: url("https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  transition: all 1s;
-}
-.windsurf_image div {
-  width: 100%;
-  height: 100%;
-  background: url("https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+  background: url("https://kiteboardingsardinia.com/wp-content/uploads/2017/04/Kiteboarding-in-Sardinia-1536x1536.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   transition: all 1s;
 }
 
-.kitesurf_image div {
-  width: 100%;
-  height: 100%;
-  background: url("https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  transition: all 1s;
+
+
+.surf_image .windsurf {
+  background-image: url("https://www.globosurfer.com/wp-content/uploads/2020/02/How_To_Windsurf_Windsurfing_For_Beginners.jpg");
+}
+
+.surf_image .kitesurf {
+  background-image: url("https://kiteboardingsardinia.com/wp-content/uploads/2017/04/Kiteboarding-in-Sardinia-1536x1536.jpg")
 }
 
 .surf_image div:hover {
+  transform: scale(1.5);
+}
+
+.kitesurf_image div:hover {
+  transform: scale(1.5);
+}
+
+.windsurf_image div:hover {
   transform: scale(1.5);
 }
 

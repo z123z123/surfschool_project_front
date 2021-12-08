@@ -79,30 +79,32 @@
       <v-row>
         <v-col cols="12" md="6">
           <div class="button">
-            <v-btn v-on:click="bookSingle()"
+            <v-btn  color= "purple darken-1" class="white--text" v-on:click="bookSingle()"
                    width="350"
-                   height="75"
+                   height="60"
                    depressed
                    elevation="30"
                    raised
                    rounded
                    x-large
                    padding="5"
+
             >Book Your Experience Now
             </v-btn>
           </div>
         </v-col>
         <v-col cols="12" md="6">
           <div class="button">
-            <v-btn v-on:click="bookGroup()"
+            <v-btn class="white--text" v-on:click="bookGroup()"
                    width="350"
-                   height="75"
+                   height="60"
                    depressed
                    elevation="30"
                    raised
                    rounded
                    x-large
                    padding="5"
+                   color="#c48a0f"
             >Book Group Experience Now
             </v-btn>
           </div>
@@ -117,7 +119,7 @@
         <v-card
             flat
             tile
-            class="blue lighten-1 white--text text-center"
+            class="social_media"
         >
           <br>
           <v-card-text>
@@ -190,6 +192,7 @@ section {
   background: antiquewhite;
   color: blue;
   z-index: 2;
+  font-family: "Bauhaus 93";
 }
 
 .showcase video {
@@ -228,7 +231,7 @@ section {
 
 h3 {
   color: #c48a0f;
-  /*font-family: "Bauhaus 93";*/
+  font-family: "Bauhaus 93";
   font-size: 3em;
   font-weight: 600;
   line-height: 1em;
@@ -240,19 +243,7 @@ h3 {
 .surf-description {
   display: flex;
   align-content: center;
-  margin: 15%;
-}
-
-.description-image {
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  margin: auto 0;
-  margin-left: 35%;
-}
-
-.description-image-middle {
-  margin-left: 15%;
+  margin: 5%;
 }
 
 .description-text {
@@ -260,7 +251,9 @@ h3 {
 }
 
 .booking-section {
-  margin: 15%;
+  margin: 0;
+  background-color: #dee7e1;
+  margin-block: auto;
 }
 
 .button {
@@ -268,7 +261,10 @@ h3 {
   display: flex;
   justify-content: space-around;
   size: 3em;
-  margin-top: 10%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  font-family: "Bauhaus 93";
+  font-size: 70px;
 }
 
 .surf_image {
@@ -281,37 +277,15 @@ h3 {
   position: relative;
 }
 
-.kitesurf_image {
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  margin: auto 0;
-  margin-left: 35%;
-  overflow: hidden;
-  position: relative;
-}
-
-.windsurf_image {
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  margin: auto 0;
-  margin-left: 35%;
-  overflow: hidden;
-  position: relative;
-}
-
 .surf_image div {
   width: 100%;
   height: 100%;
-  background: url("https://kiteboardingsardinia.com/wp-content/uploads/2017/04/Kiteboarding-in-Sardinia-1536x1536.jpg");
+  background: url("https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   transition: all 1s;
 }
-
-
 
 .surf_image .windsurf {
   background-image: url("https://www.globosurfer.com/wp-content/uploads/2020/02/How_To_Windsurf_Windsurfing_For_Beginners.jpg");
@@ -333,4 +307,12 @@ h3 {
   transform: scale(1.5);
 }
 
+.social_media {
+  background-color: #011c13;
+}
+
+.button_color {
+  background-color: #c48a0f;
+  border-color: #c48a0f;
+}
 </style>

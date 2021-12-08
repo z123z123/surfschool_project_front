@@ -7,6 +7,8 @@ import VueAxios from "vue-axios";
 import Embed from "v-video-embed";
 import VideoBg from 'vue-videobg'
 
+
+
 Vue.component('video-bg', VideoBg)
 
 Vue.use(VueAxios, axios);

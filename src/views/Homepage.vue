@@ -33,7 +33,7 @@
       </div>
       <div class="surf-description">
         <v-row>
-          <v-col cols="12" md="6">
+          <v-col class="test" cols="12" md="6">
             <div class="surf_image">
               <div class="kitesurf"></div>
             </div>
@@ -244,6 +244,10 @@ h3 {
   display: flex;
   align-content: center;
   margin: 5%;
+}
+.description-image:hover {
+  transform: scale(1.25);
+  transition: all 1s;
 }
 
 .description-text {

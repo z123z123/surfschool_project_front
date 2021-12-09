@@ -10,7 +10,7 @@
         <br>
         <br>
         <p>Booking confirmation is sent to your e-mail</p>
-        <p class="small">Returning to front page in ... {{countDown}}</p>
+        <p class="small">Returning to front page in ... {{ countDown }}</p>
       </div>
     </section>
   </v-container>
@@ -21,14 +21,14 @@ import router from "@/router";
 
 export default {
   name: "BookingConfirmation",
-  data: function (){
+  data: function () {
     return {
-      countDown : 10
+      countDown: 10
     }
   },
-  methods:{
-    countDownTimer: function() {
-      if(this.countDown > 0) {
+  methods: {
+    countDownTimer: function () {
+      if (this.countDown > 0) {
         setTimeout(() => {
           this.countDown -= 1
           this.countDownTimer()
@@ -37,7 +37,9 @@ export default {
     }
   }, mounted() {
     this.countDownTimer();
-    setTimeout(function(){router.push({name: "Homepage"})},10000);
+    setTimeout(function () {
+      router.push({name: "Homepage"})
+    }, 10000);
   },
 }
 </script>
@@ -55,7 +57,6 @@ export default {
   background: antiquewhite;
   color: blue;
   z-index: 2;
-  font-family: "Bauhaus 93";
 }
 
 .showcase video {
@@ -83,10 +84,12 @@ export default {
   text-align: center;
   color: #fff;
 }
+
 p {
   font-size: 2em;
 }
-.small{
+
+.small {
   font-size: 1em;
 }
 

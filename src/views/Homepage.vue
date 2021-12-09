@@ -70,16 +70,37 @@
         </v-row>
       </div>
     </section>
-
+    <br>
 
     <section class="booking-section">
+      <h3>Our Surf School</h3>
       <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
         standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
         a type specimen book. It has survived not only five centuries</p>
+      <br>
+      <v-row>
+        <v-col cols="12" md="6" class="service_description">
+          <h4>Single Person Surf Session</h4>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            industry's
+            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
+            make
+            a type specimen book. It has survived not only five centuries</p>
+        </v-col>
+        <v-col cols="12" md="6" class="service_description">
+          <h4>Group Surf Session</h4>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            industry's
+            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
+            make
+            a type specimen book. It has survived not only five centuries</p>
+        </v-col>
+      </v-row>
+
       <v-row>
         <v-col cols="12" md="6">
           <div class="button">
-            <v-btn  color= "purple darken-1" class="white--text" v-on:click="bookSingle()"
+            <v-btn color="teal darken-3" class="white--text" v-on:click="bookSingle()"
                    width="350"
                    height="60"
                    depressed
@@ -88,14 +109,13 @@
                    rounded
                    x-large
                    padding="5"
-
-            >Book Your Experience Now
+            ><h5 class="font-weight-regular">Book Your Experience Now</h5>
             </v-btn>
           </div>
         </v-col>
         <v-col cols="12" md="6">
           <div class="button">
-            <v-btn class="white--text" v-on:click="bookGroup()"
+            <v-btn color="teal darken-3" class="white--text" v-on:click="bookGroup()"
                    width="350"
                    height="60"
                    depressed
@@ -104,12 +124,12 @@
                    rounded
                    x-large
                    padding="5"
-                   color="#c48a0f"
-            >Book Group Experience Now
+            ><h5 class="font-weight-regular">Book Group Experience Now</h5>
             </v-btn>
           </div>
         </v-col>
       </v-row>
+
     </section>
     <v-footer
         dark
@@ -237,7 +257,26 @@ h3 {
   line-height: 1em;
   text-transform: uppercase;
   text-align: center;
-  margin-top: 15px;
+  margin-top: 10px;
+}
+
+h4 {
+  font-family: "Bauhaus 93";
+  font-size: 2em;
+  color: #c48a0f;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+h5 {
+  font-size: large;
+}
+
+p {
+  text-align: justify;
+  margin: 1em;
 }
 
 .surf-description {
@@ -251,20 +290,20 @@ h3 {
 }
 
 .booking-section {
-  margin: 0;
-  background-color: #dee7e1;
+  margin: 5%;
   margin-block: auto;
+  justify-content: center;
 }
 
 .button {
   text-align: center;
   display: flex;
   justify-content: space-around;
-  size: 3em;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-top: 7%;
+  margin-bottom: 7%;
   font-family: "Bauhaus 93";
-  font-size: 70px;
+  padding-bottom: 30px;
+  font-weight: 600;
 }
 
 .surf_image {
@@ -288,7 +327,7 @@ h3 {
 }
 
 .surf_image .windsurf {
-  background-image: url("https://www.globosurfer.com/wp-content/uploads/2020/02/How_To_Windsurf_Windsurfing_For_Beginners.jpg");
+  background-image: url("https://windsurfvassiliki.com/wp-content/uploads/2021/05/video-bg.jpg");
 }
 
 .surf_image .kitesurf {
@@ -308,11 +347,7 @@ h3 {
 }
 
 .social_media {
-  background-color: #011c13;
+  background-color: #00695C;
 }
 
-.button_color {
-  background-color: #c48a0f;
-  border-color: #c48a0f;
-}
 </style>

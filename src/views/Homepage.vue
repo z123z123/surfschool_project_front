@@ -79,7 +79,7 @@
       <v-row>
         <v-col cols="12" md="6">
           <div class="button">
-            <v-btn  color= "purple darken-1" class="white--text" v-on:click="bookSingle()"
+            <v-btn color="teal darken-2" class="white--text" v-on:click="bookSingle()"
                    width="350"
                    height="60"
                    depressed
@@ -89,13 +89,13 @@
                    x-large
                    padding="5"
 
-            >Book Your Experience Now
+            ><h4 class="font-weight-regular">Book Your Experience Now</h4>
             </v-btn>
           </div>
         </v-col>
         <v-col cols="12" md="6">
           <div class="button">
-            <v-btn class="white--text" v-on:click="bookGroup()"
+            <v-btn color="teal darken-2" class="white--text" v-on:click="bookGroup()"
                    width="350"
                    height="60"
                    depressed
@@ -104,8 +104,7 @@
                    rounded
                    x-large
                    padding="5"
-                   color="#c48a0f"
-            >Book Group Experience Now
+            ><h4 class="font-weight-regular">Book Group Experience Now</h4>
             </v-btn>
           </div>
         </v-col>
@@ -239,6 +238,9 @@ h3 {
   text-align: center;
   margin-top: 15px;
 }
+p {
+text-align: justify;
+}
 
 .surf-description {
   display: flex;
@@ -267,6 +269,15 @@ h3 {
   font-size: 70px;
 }
 
+/*.v-btn input {*/
+/*  font-size: 30px;*/
+/*}*/
+.v-text-field >>> button {
+  font-size: 30px;
+}
+
+
+
 .surf_image {
   width: 250px;
   height: 250px;
@@ -288,7 +299,7 @@ h3 {
 }
 
 .surf_image .windsurf {
-  background-image: url("https://www.globosurfer.com/wp-content/uploads/2020/02/How_To_Windsurf_Windsurfing_For_Beginners.jpg");
+  background-image: url("https://windsurfvassiliki.com/wp-content/uploads/2021/05/video-bg.jpg");
 }
 
 .surf_image .kitesurf {

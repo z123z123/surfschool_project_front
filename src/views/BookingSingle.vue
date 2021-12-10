@@ -34,7 +34,7 @@
                 <v-select
                     :items="times"
                     label="See available times"
-                    v-model="time"
+                    v-model="client.time"
                     :rules="[(v) => !!v || 'Field is required']"
                     outlined
                     width="350"
@@ -53,6 +53,7 @@
                       text
                       color="indigo darken-4"
                       @click="$refs.menu.save(date)"
+                      v-on:click="submitDate()"
                   >
                     OK
                   </v-btn>
@@ -68,7 +69,7 @@
               :items="styles"
               item-text="style"
               label="Surf style"
-              v-model="style"
+              v-model="client.style"
               :rules="[(v) => !!v || 'Field is required']"
               return-object
               background-color="white"
@@ -78,14 +79,14 @@
           <v-select
               :items="levels"
               label="Surf level"
-              v-model="level"
+              v-model="client.level"
               :rules="[(v) => !!v || 'Field is required']"
               outlined
               required
               background-color="white"
           ></v-select>
           <v-text-field
-              v-model="firstname"
+              v-model="client.firstname"
               :rules="nameRules"
               label="First name"
               outlined
@@ -93,7 +94,7 @@
               background-color="white"
           ></v-text-field>
           <v-text-field
-              v-model="lastname"
+              v-model="client.lastname"
               :rules="nameRules"
               label="Last name"
               outlined
@@ -101,7 +102,7 @@
               background-color="white"
           ></v-text-field>
           <v-text-field
-              v-model="email"
+              v-model="client.email"
               :rules="emailRules"
               label="E-mail"
               outlined
@@ -109,7 +110,7 @@
               background-color="white"
           ></v-text-field>
           <v-text-field
-              v-model="height"
+              v-model="client.height"
               :rules="heightRules"
               label="Height (cm)"
               outlined
@@ -117,7 +118,7 @@
               background-color="white"
           ></v-text-field>
           <v-text-field
-              v-model="weight"
+              v-model="client.weight"
               :rules="weightRules"
               label="Weight (kg)"
               outlined
@@ -127,13 +128,13 @@
           <v-select
               :items="genders"
               label="Gender"
-              v-model="gender"
+              v-model="client.gender"
               outlined
               background-color="white"
           ></v-select>
           <v-checkbox
-              color="indigo darken-4"
-              v-model="wetsuit"
+              color="teal darken-3"
+              v-model="client.wetsuit"
               :label="`Require wetsuit`"
               class="pb-7 pt-2 mt-n3"
           ></v-checkbox>
@@ -151,26 +152,26 @@
                 <div class="text-overline mb-4">
                   SUMMARY
                 </div>
-                <v-list-item-subtitle>Date: {{ date }}</v-list-item-subtitle>
-                <v-list-item-subtitle>Time: {{ time }}</v-list-item-subtitle>
-                <v-list-item-subtitle>Full name: {{firstname}} {{lastname}}</v-list-item-subtitle>
-                <v-list-item-subtitle>Surf style: {{ style.style }}</v-list-item-subtitle>
-                <v-list-item-subtitle>Level: {{ level }}</v-list-item-subtitle>
-                <div v-if="wetsuit === true">
+                <v-list-item-subtitle>Date: {{ client.bookedDate }}</v-list-item-subtitle>
+                <v-list-item-subtitle>Time: {{ client.time }}</v-list-item-subtitle>
+                <v-list-item-subtitle>Full name: {{client.firstname}} {{client.lastname}}</v-list-item-subtitle>
+                <v-list-item-subtitle>Surf style: {{client.style.style }}</v-list-item-subtitle>
+                <v-list-item-subtitle>Level: {{ client.level }}</v-list-item-subtitle>
+                <div v-if="client.wetsuit === true">
                   <v-list-item-subtitle>Require wetsuit: Yes</v-list-item-subtitle>
                 </div>
                 <div v-else>
                   <v-list-item-subtitle>Require wetsuit: No</v-list-item-subtitle>
                 </div>
                 <v-list-item-title class="text-h5 mb-1">
-                  Total: {{ style.price }} $
+                  Total: {{ client.style.price }} $
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-card>
           <div class="booking-btn">
             <v-btn class=" teal darken-4 white--text" width="100%" max-width="344" outlined text tile x-large
-                   v-on:click="confirmation()">Book
+                   v-on:click="book()">Book
             </v-btn>
           </div>
         </div>
@@ -189,40 +190,56 @@ export default {
     menu: false,
     modal: false,
     menu2: false,
-    styles: [{style: "Traditional surf", price: 59.99}, {style: "Windsurf", price: 79.99}, {
-      style: "Kitesurf",
-      price: 89.99
-    }],
-    style: {style: "", price: ""},
+    styles: [{style: "Traditional surf", price: 59.99, id:"1"}, {style: "Windsurf", price: 79.99, id:"2"}, {style: "Kitesurf", price: 89.99, id:"3"}],
     levels: ["Beginner", "Intermediate", "Advanced"],
-    level: "",
-    firstname: '',
-    lastname: '',
+    client: {
+      bookedDate: "",
+      time:"",
+      style: {style: "", price: "", id:""},
+      level: "",
+      firstname: "",
+      lastname: "",
+      email: "",
+      weight: "",
+      height: "",
+      gender: "",
+      wetsuit: false
+    },
+
     nameRules: [
       v => !!v || 'Name is required',
     ],
-    email: '',
     emailRules: [
       v => !!v || 'E-mail is required',
       v => /.+@.+/.test(v) || 'E-mail must be valid',
     ],
-    weight: "",
     weightRules: [
       v => !!v || 'Weight is required',
     ],
-    height: "",
+
     heightRules: [
       v => !!v || 'Height is required',
     ],
     genders: ["Male", "Female"],
-    gender: "",
     total: "",
-    times: ["10:00", "11:00", "12:00"],
-    time: "",
-    wetsuit: false
+    times: ["10:00:00", "11:00:00", "12:00:00"],
   }),
   methods: {
-    confirmation: function () {
+    book: function () {
+      this.$http.post("api/bookingsingle", {
+        bookingId: 2,
+        date: this.client.bookedDate,
+        time: "11:11:11",
+        surfStyle: this.client.style.id,
+        firstName: this.client.firstname,
+        lastName: this.client.lastname,
+        level: this.client.level,
+        wetsuit: this.client.wetsuit,
+        gender: this.client.gender,
+        weight: this.client.weight,
+        height: this.client.height,
+        email: this.client.email
+      });
       router.push({name: "BookingConfirmation"});
     },
     back: function () {
@@ -230,7 +247,11 @@ export default {
     },
     toTop: function () {
       this.$vuetify.goTo(0)
-    }
+    },
+    submitDate: function (){
+      this.client.bookedDate = this.date;
+    },
+
   },mounted() {
     this.toTop()
   }

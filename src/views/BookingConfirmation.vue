@@ -10,7 +10,6 @@
         <br>
         <br>
         <p>Booking confirmation is sent to your e-mail</p>
-        <p class="small">Returning to front page in ... {{ countDown }}</p>
       </div>
     </section>
   </v-container>
@@ -87,6 +86,7 @@ export default {
 
 p {
   font-size: 2em;
+  font-family: sans-serif;
 }
 
 .small {
@@ -95,8 +95,8 @@ p {
 
 .text h2 {
   color: #fff;
-  /*font-family: "Bauhaus 93";*/
-  font-size: 6rem;
+  font-family: "Bauhaus 93";
+  font-size: 5rem;
   font-weight: 800;
   line-height: 1em;
   text-transform: uppercase;

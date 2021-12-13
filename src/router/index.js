@@ -6,6 +6,7 @@ import Homepage from "../views/Homepage";
 import BookingGroup from "@/views/BookingGroup";
 import BookingConfirmation from "@/views/BookingConfirmation";
 import AdminView from "@/views/AdminView";
+import LoginPage from "@/views/LoginPage";
 
 Vue.use(VueRouter)
 
@@ -49,6 +50,11 @@ const routes = [
     path: "/admin",
     name:"AdminView",
     component: AdminView
+  },
+  {
+    path:"/login",
+    name:"LoginPage",
+    component: LoginPage
   }
 ]
 

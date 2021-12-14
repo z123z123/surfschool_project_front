@@ -32,7 +32,7 @@
             <v-text-field
                 v-model="search"
                 append-icon="mdi-magnify"
-                label="Search"
+                label="Search in UPPERCASE"
                 single-line
                 hide-details
                 class="custom-search"

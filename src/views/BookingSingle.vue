@@ -226,7 +226,7 @@ export default {
   }),
   methods: {
     book: function () {
-      this.$http.post("api/bookingsingle", {
+      this.$http.post("api/public/bookingsingle", {
         bookingId: 2,
         date: this.client.bookedDate,
         time: "11:11:11",

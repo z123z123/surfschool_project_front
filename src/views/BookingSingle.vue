@@ -26,6 +26,8 @@
             </template>
             <v-date-picker
                 v-model="date"
+                min="2022-05-01"
+                max="2022-08-31"
                 no-title
                 scrollable
                 width="340"
@@ -44,14 +46,14 @@
                 <div class="d-flex justify-space-between">
                   <v-btn
                       text
-                      color="indigo darken-4"
+                      color="teal darken-3"
                       @click="menu = false"
                   >
                     Cancel
                   </v-btn>
                   <v-btn
                       text
-                      color="indigo darken-4"
+                      color="teal darken-3"
                       @click="$refs.menu.save(date)"
                       v-on:click="submitDate()"
                   >
@@ -186,7 +188,7 @@ import router from "@/router";
 export default {
   name: "BookingSingle",
   data: () => ({
-    date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+    date: (new Date(new Date(2022, 4, 2) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
     menu: false,
     modal: false,
     menu2: false,

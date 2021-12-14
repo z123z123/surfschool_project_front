@@ -5,7 +5,7 @@
       <v-flex xs12 sm8 md4>
         <v-card class="elevation-12">
           <v-toolbar dark color="teal darken-3">
-            <v-toolbar-title>Login Form</v-toolbar-title>
+            <v-toolbar-title>User login</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
             <v-form class="pt-5">
@@ -54,11 +54,17 @@ export default {
     login: function (){
       this.$http.post("api/public/login", this.user)
         .then(result => {
+          this.user.userName = "";
+          this.user.password = "";
           this.token = result.data;
           console.log(this.token);
           localStorage.setItem('user-token', this.token)
           this.$http.defaults.headers.common['Authorization'] = "Bearer " + this.token;
-          router.push({name:"AdminView"})
+          router.push({name:"AdminView", params:{token: this.token}})
+        })
+        .catch(err =>{
+          console.log(err);
+          alert("Wrong username or password.");
         })
     },
     back: function (){
@@ -71,7 +77,7 @@ export default {
 <style scoped>
     .back-btn{
       position: absolute;
-      top: 15px;
-      left: 15px;
+      top: 30px;
+      left: 30px;
     }
 </style>

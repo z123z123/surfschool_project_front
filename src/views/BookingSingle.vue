@@ -190,7 +190,7 @@ export default {
     menu: false,
     modal: false,
     menu2: false,
-    styles: [{style: "Traditional surf", price: 59.99, id:"1"}, {style: "Windsurf", price: 79.99, id:"2"}, {style: "Kitesurf", price: 89.99, id:"3"}],
+    styles: [],
     levels: ["Beginner", "Intermediate", "Advanced"],
     client: {
       bookedDate: "",
@@ -251,9 +251,19 @@ export default {
     submitDate: function (){
       this.client.bookedDate = this.date;
     },
+    getStyles: function (){
+      this.$http.get("api/public/getstyles")
+        .then(response => {
+          this.styles = response.data;
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
 
   },mounted() {
-    this.toTop()
+    this.toTop();
+    this.getStyles();
   }
 }
 </script>
@@ -261,9 +271,12 @@ export default {
 <style scoped>
 .back-btn{
   z-index: 2;
+  position: absolute;
+  top: 30px;
+  left: 30px;
 }
 .data-input-top{
-  margin: 15% 0 20% 25%;
+  margin: 30% 0 20% 25%;
 }
 .data-input-view {
   margin: 5% 15%;

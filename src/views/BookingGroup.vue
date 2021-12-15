@@ -44,14 +44,14 @@
                 <div class="d-flex justify-space-between">
                   <v-btn
                       text
-                      color="indigo darken-4"
+                      color="indigo darken-3"
                       @click="menu = false"
                   >
                     Cancel
                   </v-btn>
                   <v-btn
                       text
-                      color="indigo darken-4"
+                      color="indigo darken-3"
                       @click="$refs.menu.save(date)"
                   >
                     OK
@@ -167,7 +167,7 @@
             </v-list-item>
           </v-card>
           <div class="booking-btn">
-            <v-btn class=" teal darken-4 white--text" width="100%" max-width="344" outlined text tile x-large
+            <v-btn class=" teal darken-3 white--text" width="100%" max-width="344" outlined text tile x-large
                    v-on:click="saveClient()">Add person
             </v-btn>
           </div>
@@ -187,23 +187,138 @@
                 <table id="clientTable">
                   <tr v-for="newclient in clients">
                     <td>{{ newclient.firstName }} {{ newclient.lastName }}</td>
-<!--                    <td>-->
-<!--                      <v-btn class=" teal darken-4 white&#45;&#45;text"-->
-<!--                             v-on:click="editClient()">Edit-->
-<!--                      </v-btn>-->
+                    <!--                    <td>-->
+                    <!--                      <v-btn class=" teal darken-4 white&#45;&#45;text"-->
+                    <!--                             v-on:click="editClient()">Edit-->
+                    <!--                      </v-btn>-->
                     <td>
-<!--                    <v-btn class=" teal darken-4 white&#45;&#45;text"-->
-<!--                             v-on:click="deleteClient()">Delete-->
-<!--                      </v-btn>-->
-
-                      <v-btn v-slot:activator="{ on, attrs }"
-                          color="primary"
-                          dark
-                          v-bind="attrs"
-                          v-on="on"
+                      <!--                    <v-btn class=" teal darken-4 white&#45;&#45;text"-->
+                      <!--                             v-on:click="deleteClient()">Delete-->
+                      <!--                      </v-btn>-->
+                      <!--                      <v-row justify="center">-->
+                      <v-dialog
+                          v-model="dialog"
+                          persistent
+                          max-width="600px"
                       >
-                        Open Dialog
-                      </v-btn>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-btn
+                              color="teal darken-3"
+                              dark
+                              v-bind="attrs"
+                              v-on:click="deleteItem(newclient)"
+                          >
+                            Delete
+                          </v-btn>
+                        </template>
+                        <v-card>
+                          <v-card-title>
+                            <span class="text-h5">Customer Info</span>
+                          </v-card-title>
+                          <v-card-text>
+                            <v-container>
+                              <v-row>
+                                <v-col
+                                    cols="12"
+                                    sm="6"
+                                    md="4">
+                                  <v-text-field v-model="client.firstName">
+                                    label="First Name"
+                                    >
+                                  </v-text-field>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    sm="6"
+                                    md="4">
+                                  <v-text-field v-model="client.lastName"
+                                                label="Last Name"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    sm="6"
+                                    md="4">
+                                  <v-text-field v-model="client.email"
+                                                label="Email"
+                                  ></v-text-field>
+                                </v-col>
+                              </v-row>
+                              <v-row>
+                                <v-col
+                                    cols="12"
+                                    sm="6"
+                                    md="4">
+                                  <v-text-field v-model="client.style"
+                                                label="Surf Style"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    sm="6"
+                                    md="4">
+                                  <v-text-field v-model="client.level"
+                                                label="Level"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    sm="6"
+                                    md="4">
+                                  <v-text-field v-model="client.wetsuit"
+                                                label="Wetsuit"
+                                                hint="true or false"
+                                                persistent-hint
+                                  ></v-text-field>
+                                </v-col>
+                              </v-row>
+                              <v-row>
+                                <v-col
+                                    cols="12"
+                                    sm="6"
+                                    md="4">
+                                  <v-text-field v-model="client.height"
+                                                label="Height"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    sm="6"
+                                    md="4">
+                                  <v-text-field v-model="client.weight"
+                                                label="Weight"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    sm="6"
+                                    md="4">
+                                  <v-text-field v-model="client.gender"
+                                                label="Gender"
+                                  ></v-text-field>
+                                </v-col>
+                              </v-row>
+                            </v-container>
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                color="teal darken-3"
+                                text
+                                @click="deleteItemConfirm()"
+                            >
+                              Confirm
+                            </v-btn>
+                            <v-btn
+                                color="teal darken-3"
+                                text
+                                @click="dialog = false"
+                            >
+                              Cancel
+                            </v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
                     </td>
                   </tr>
                 </table>
@@ -215,128 +330,13 @@
             </v-list-item>
           </v-card>
           <div class="booking-btn">
-            <v-btn class=" teal darken-4 white--text" width="100%" max-width="344" outlined text tile x-large
+            <v-btn class=" teal darken-3 white--text" width="100%" max-width="344" outlined text tile x-large
                    v-on:click="confirmation()">Book
             </v-btn>
           </div>
         </div>
       </v-col>
     </v-row>
-
-    <div class="delete_form">
-    <v-row justify="center">
-      <v-dialog
-          v-model="dialog"
-          persistent
-          max-width="600px"
-      >
-<!--        <template v-slot:activator="{ on, attrs }">-->
-<!--          <v-btn-->
-<!--              color="primary"-->
-<!--              dark-->
-<!--              v-bind="attrs"-->
-<!--              v-on="on"-->
-<!--          >-->
-<!--            Open Dialog-->
-<!--          </v-btn>-->
-<!--        </template>-->
-        <v-card>
-          <v-card-title>
-            <span class="text-h5">User Profile</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                >
-                  <v-text-field
-                      label="Legal first name*"
-                      required
-                  ></v-text-field>
-                </v-col>
-                <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                >
-                  <v-text-field
-                      label="Legal middle name"
-                      hint="example of helper text only on focus"
-                  ></v-text-field>
-                </v-col>
-                <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                >
-                  <v-text-field
-                      label="Legal last name*"
-                      hint="example of persistent helper text"
-                      persistent-hint
-                      required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                      label="Email*"
-                      required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                      label="Password*"
-                      type="password"
-                      required
-                  ></v-text-field>
-                </v-col>
-                <v-col
-                    cols="12"
-                    sm="6"
-                >
-                  <v-select
-                      :items="['0-17', '18-29', '30-54', '54+']"
-                      label="Age*"
-                      required
-                  ></v-select>
-                </v-col>
-                <v-col
-                    cols="12"
-                    sm="6"
-                >
-                  <v-autocomplete
-                      :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                      label="Interests"
-                      multiple
-                  ></v-autocomplete>
-                </v-col>
-              </v-row>
-            </v-container>
-            <small>*indicates required field</small>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-                color="blue darken-1"
-                text
-                @click="dialog = false"
-            >
-              Close
-            </v-btn>
-            <v-btn
-                color="blue darken-1"
-                text
-                @click="dialog = false"
-            >
-              Save
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-row>
-    </div>
 
   </v-container>
 </template>
@@ -390,14 +390,27 @@ export default {
   }),
 
   methods: {
+    deleteItem: function (newClient) {
+      this.dialog = true;
+      this.client = newClient
+    },
+
+    deleteItemConfirm: function () {
+      this.dialog = false;
+      let index = this.clients.indexOf(this.client)
+      console.log(index)
+      this.clients.splice(index, 1)
+    },
+
     confirmation: function () {
-      router.push({name: "BookingConfirmation"});
-    }
-    ,
+      this.$http.post("api/public/bookgroup", this.clients)
+      // router.push({name: "BookingConfirmation"});
+    },
+
     back: function () {
       router.push({name: "Homepage"})
-    }
-    ,
+    },
+
     toTop: function () {
       this.$vuetify.goTo(0)
     },
@@ -406,23 +419,11 @@ export default {
       let clientCopy = JSON.parse(JSON.stringify(this.client))
       this.clients.push(clientCopy)
     },
-    //limit nr of rows to 6!!!!!!!!!!!!!!!!
-    //find, edit, save new
-    // editClient: function () {
-    //   let copyOfClientCopy = clientCopy.map(newclient=>
-    //   newclient.firstName === firstName ?
-    //       {...copyOfClientCopy, ...firstName} :newclient)
 
-// objlastName = clients.findIndex((obj => obj.lastName));
-//     })
-// },
-    deleteClient: function () {
-    }
-},
-mounted()
-{
-  this.toTop()
-}
+  },
+  mounted() {
+    this.toTop()
+  }
 }
 
 

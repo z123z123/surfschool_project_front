@@ -245,16 +245,12 @@ export default {
         height: this.client.height,
         email: this.client.email
       });
-      router.push({name: "BookingConfirmation"});
-
-      let timeIndex = this.sortedTimes.map(function (e) {
-        return e.time;
-      }).indexOf(this.client.time)
+      let timeIndex = this.sortedTimes.map(function (e) {return e.time}).indexOf(this.client.time);
       let time = this.sortedTimes[timeIndex];
       time.count = time.count - 1;
-      // andmebaasi uuendamine?
-
-
+      console.log(time.count + " " + time.id)
+      this.$http.put("api/public/updatetimes",{id: time.id, newCount:time.count});
+      router.push({name: "BookingConfirmation"});
     },
     back: function () {
       router.push({name: "Homepage"})

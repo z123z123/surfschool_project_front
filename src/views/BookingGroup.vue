@@ -26,15 +26,19 @@
             </template>
             <v-date-picker
                 v-model="date"
+                v-on:change="sort()"
+                min="2022-05-01"
+                max="2022-08-31"
                 no-title
                 scrollable
                 width="340"
             >
               <div class="time-input">
                 <v-select
-                    :items="times"
+                    :items="sortedTimes"
+                    item-text="time"
                     label="See available times"
-                    v-model="time"
+                    v-model="client.time"
                     :rules="[(v) => !!v || 'Field is required']"
                     outlined
                     width="350"
@@ -44,14 +48,14 @@
                 <div class="d-flex justify-space-between">
                   <v-btn
                       text
-                      color="indigo darken-3"
+                      color="teal darken-3"
                       @click="menu = false"
                   >
                     Cancel
                   </v-btn>
                   <v-btn
                       text
-                      color="indigo darken-3"
+                      color="teal darken-3"
                       @click="$refs.menu.save(date)"
                   >
                     OK
@@ -68,7 +72,7 @@
               :items="styles"
               item-text="style"
               label="Surf style"
-              v-model="client.style"
+              v-model="client.surfStyle"
               :rules="[(v) => !!v || 'Field is required']"
               return-object
               background-color="white"
@@ -85,7 +89,7 @@
               background-color="white"
           ></v-select>
           <v-text-field
-              v-model="client.firstName"
+              v-model="client.firstname"
               :rules="nameRules"
               label="First name"
               outlined
@@ -93,7 +97,7 @@
               background-color="white"
           ></v-text-field>
           <v-text-field
-              v-model="client.lastName"
+              v-model="client.lastname"
               :rules="nameRules"
               label="Last name"
               outlined
@@ -132,7 +136,7 @@
               background-color="white"
           ></v-select>
           <v-checkbox
-              color="teal darker-3"
+              color="teal darken-3"
               v-model="client.wetsuit"
               :label="`Require wetsuit`"
               class="pb-7 pt-2 mt-n3"
@@ -151,10 +155,10 @@
                 <div class="text-overline mb-4">
                   SUMMARY
                 </div>
-                <v-list-item-subtitle>Date: {{ date }}</v-list-item-subtitle>
-                <v-list-item-subtitle>Time: {{ time }}</v-list-item-subtitle>
-                <v-list-item-subtitle>Full name: {{ client.firstName }} {{ client.lastName }}</v-list-item-subtitle>
-                <v-list-item-subtitle>Surf style: {{ client.style.style }}</v-list-item-subtitle>
+                <v-list-item-subtitle>Date: {{ client.bookedDate }}</v-list-item-subtitle>
+                <v-list-item-subtitle>Time: {{ client.time }}</v-list-item-subtitle>
+                <v-list-item-subtitle>Full name: {{ client.firstname }} {{ client.lastname }}</v-list-item-subtitle>
+                <v-list-item-subtitle>Surf style: {{ client.surfStyle.style }}</v-list-item-subtitle>
                 <v-list-item-subtitle>Level: {{ client.level }}</v-list-item-subtitle>
                 <div v-if="client.wetsuit === true">
                   <v-list-item-subtitle>Require wetsuit: Yes</v-list-item-subtitle>
@@ -185,17 +189,9 @@
                   SUMMARY
                 </div>
                 <table id="clientTable">
-                  <tr v-for="newclient in clients">
-                    <td>{{ newclient.firstName }} {{ newclient.lastName }}</td>
-                    <!--                    <td>-->
-                    <!--                      <v-btn class=" teal darken-4 white&#45;&#45;text"-->
-                    <!--                             v-on:click="editClient()">Edit-->
-                    <!--                      </v-btn>-->
+                  <tr v-for="newClient in clients">
+                    <td>{{ newClient.firstname }} {{ newClient.lastname }}</td>
                     <td>
-                      <!--                    <v-btn class=" teal darken-4 white&#45;&#45;text"-->
-                      <!--                             v-on:click="deleteClient()">Delete-->
-                      <!--                      </v-btn>-->
-                      <!--                      <v-row justify="center">-->
                       <v-dialog
                           v-model="dialog"
                           persistent
@@ -206,7 +202,7 @@
                               color="teal darken-3"
                               dark
                               v-bind="attrs"
-                              v-on:click="deleteItem(newclient)"
+                              v-on:click="deleteItem(newClient)"
                           >
                             Delete
                           </v-btn>
@@ -222,7 +218,7 @@
                                     cols="12"
                                     sm="6"
                                     md="4">
-                                  <v-text-field v-model="client.firstName">
+                                  <v-text-field v-model="client.firstname">
                                     label="First Name"
                                     >
                                   </v-text-field>
@@ -231,7 +227,7 @@
                                     cols="12"
                                     sm="6"
                                     md="4">
-                                  <v-text-field v-model="client.lastName"
+                                  <v-text-field v-model="client.lastname"
                                                 label="Last Name"
                                   ></v-text-field>
                                 </v-col>
@@ -249,7 +245,7 @@
                                     cols="12"
                                     sm="6"
                                     md="4">
-                                  <v-text-field v-model="client.style"
+                                  <v-text-field v-model="client.surfStyle"
                                                 label="Surf Style"
                                   ></v-text-field>
                                 </v-col>
@@ -323,7 +319,7 @@
                   </tr>
                 </table>
                 <v-list-item-title class="text-h5 mb-1">
-                  Total: {{ style.price }} $
+                  Total: {{ client.surfStyle.price }} $
                   {{ clients }}
                 </v-list-item-title>
               </v-list-item-content>
@@ -347,15 +343,28 @@ import router from "@/router";
 export default {
   name: "BookingGroup",
   data: () => ({
-    date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+    date: (new Date(new Date(2022, 4, 2) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
     menu: false,
     modal: false,
     menu2: false,
-    styles: [{style: "Traditional surf", price: 59.99}, {style: "Windsurf", price: 79.99}, {
-      style: "Kitesurf", price: 89.99
-    }],
-    style: {style: "", price: ""},
+    styles: [],
     levels: ["Beginner", "Intermediate", "Advanced"],
+    clients:[],
+    client: {
+      bookingId:"",
+      bookedDate: "",
+      time: "",
+      surfStyle: {style: "", price: "", id: ""},
+      level: "",
+      firstname: "",
+      lastname: "",
+      email: "",
+      weight: "",
+      height: "",
+      gender: "",
+      wetsuit: false
+    },
+
     nameRules: [
       v => !!v || 'Name is required',
     ],
@@ -371,22 +380,8 @@ export default {
     ],
     genders: ["Male", "Female"],
     total: "",
-    times: ["10:00", "11:00", "12:00"],
-    time: "",
-    wetsuit: false,
-    clients: [],
-    client: {
-      style: '',
-      level: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-      height: '',
-      gender: '',
-      weight: '',
-      wetsuit: ''
-    },
-    dialog: false,
+    times: [],
+    sortedTimes: [],
   }),
 
   methods: {
@@ -412,17 +407,68 @@ export default {
     },
 
     toTop: function () {
-      this.$vuetify.goTo(0)
+      this.$vuetify.goTo(0);
+      this.client.bookingId = Math.floor(Math.random()*1000000)
     },
-
+    submitDate: function () {
+      this.client.bookedDate = this.date;
+    },
+    getStyles: function () {
+      this.$http.get("api/public/getstyles")
+          .then(response => {
+            this.styles = response.data;
+          })
+          .catch(err => {
+            console.log(err);
+          })
+    },
+    getTimes: function () {
+      this.$http.get("api/public/gettimes")
+          .then(response => {
+            this.times = response.data;
+            let sortByDate = this.date;
+            this.client.bookedDate = this.date;
+            this.sortedTimes = this.times.filter(function (e) {
+              return (e.date === sortByDate)
+            });
+          })
+          .catch(err => {
+            console.log(err);
+          })
+    },
+    sort: function () {
+      this.submitDate();
+      let sortByDate = this.date;
+      this.sortedTimes = this.times.filter(function (e) {
+        return (e.date === sortByDate)
+      });
+      this.sortedTimes = this.sortedTimes.filter(function (e) {
+        return e.count > 0
+      });
+    },
     saveClient: function () {
-      let clientCopy = JSON.parse(JSON.stringify(this.client))
-      this.clients.push(clientCopy)
+      let copy = {
+        bookingId: this.client.bookingId,
+        date: this.client.bookedDate,
+        time: this.client.time,
+        surfStyle: this.client.surfStyle.id,
+        level: this.client.level,
+        firstName: this.client.firstname,
+        lastName: this.client.lastname,
+        email: this.client.email,
+        weight: this.client.weight,
+        height: this.client.height,
+        gender: this.client.gender,
+        wetsuit: false
+      }
+      let clientCopy = JSON.parse(JSON.stringify(copy));
+      this.clients.push(clientCopy);
     },
 
-  },
-  mounted() {
-    this.toTop()
+  }, mounted() {
+    this.toTop();
+    this.getStyles();
+    this.getTimes();
   }
 }
 
@@ -432,10 +478,13 @@ export default {
 <style scoped>
 .back-btn {
   z-index: 2;
+  position: absolute;
+  top: 30px;
+  left: 30px;
 }
 
 .data-input-top {
-  margin: 15% 0 20% 25%;
+  margin: 30% 0 20% 25%;
 }
 
 .data-input-view {

@@ -1,7 +1,7 @@
 <template>
-  <v-container ma-0 pa-0 fluid >
-    <div class="teal lighten-5 admin-view" >
-      <v-btn v-on:click="back()" class="teal darken-3 white--text mb-15">Back</v-btn>
+  <v-container ma-0 pa-0 fluid>
+    <div class="teal lighten-5 admin-view">
+      <v-btn v-on:click="logout()" class="teal darken-3 white--text mb-15">Logout</v-btn>
       <v-card>
         <v-card-title>
           <v-text-field
@@ -33,56 +33,70 @@ export default {
       search: '',
       headers: [
         {
-          text: 'Dessert (100g serving)',
+          text: 'Booking ID',
           align: 'start',
           filterable: false,
-          value: 'name',
+          value: 'bookingId',
         },
-        {text: 'Calories', value: 'calories'},
-        {text: 'Fat (g)', value: 'fat'},
-        {text: 'Carbs (g)', value: 'carbs'},
-        {text: 'Protein (g)', value: 'protein'},
-        {text: 'Iron (%)', value: 'iron'},
+        {text: 'Date', value: 'date'},
+        {text: 'Time', value: 'time'},
+        {text: 'Surf style', value: 'surfStyle'},
+        {text: 'First name', value: 'firstName'},
+        {text: 'Last name', value: 'lastName'},
+        {text: 'Level', value: 'level'},
+        {text: 'Require wetsuit', value: 'wetsuit'},
+        {text: 'Gender', value: 'gender'},
+        {text: 'Weight', value: 'weight'},
+        {text: 'Height', value: 'height'},
+        {text: 'E-mail', value: 'email'}
       ],
       data: [{
-        name: 'Frozen Yogurt',
-        calories: 159,
-        fat: 6.0,
-        carbs: 24,
-        protein: 4.0,
-        iron: '1%',
-      }, {name: 'Ice cream sandwich', calories: 237, fat: 9.0, carbs: 37, protein: 4.3, iron: '1%',}, {
-        name: 'Eclair',
-        calories: 262,
-        fat: 16.0,
-        carbs: 23,
-        protein: 6.0,
-        iron: '7%',
-      }, {name: 'Cupcake', calories: 305, fat: 3.7, carbs: 67, protein: 4.3, iron: '8%',}, {
-        name: 'Gingerbread',
-        calories: 356,
-        fat: 16.0,
-        carbs: 49,
-        protein: 3.9,
-        iron: '16%',
-      },
-      ],
+        bookingId: 1,
+        date: "YOU",
+        time: "SHOULD",
+        surfStyle: "NOT",
+        firstName: "BE",
+        lastName: "HERE",
+        level: "FRIEND.",
+        wetsuit: "IF",
+        gender: "INSTRUCTOR",
+        weight: "TRY",
+        height: "LOGGING",
+        email: "IN."
+      }],
+      token: ''
     }
   },
   methods: {
-    back: function () {
-      router.push({name: "Homepage"})
+    logout: function () {
+      this.token = '';
+      localStorage.removeItem('user-token');
+      alert("Logging out");
+      router.push({name: "LoginPage"})
+      location.reload();
+    },
+    getData: function () {
+      this.$http.get("api/getallclients")
+          .then(response => {
+            this.data = response.data;
+          })
+          .catch(error => {
+            console.log(error);
+          })
     }
+  }, mounted() {
+    this.getData();
   }
 }
 </script>
 
 <style scoped>
- .admin-view{
-   padding:5% 15%;
-   min-height: 100vh;
- }
- .custom-search{
-   margin: 10px 25%;
- }
+.admin-view {
+  padding: 5% 15%;
+  min-height: 100vh;
+}
+
+.custom-search {
+  margin: 10px 25%;
+}
 </style>

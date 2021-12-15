@@ -196,6 +196,7 @@ export default {
     styles: [],
     levels: ["Beginner", "Intermediate", "Advanced"],
     client: {
+      bookingId:"",
       bookedDate: "",
       time: "",
       style: {style: "", price: "", id: ""},
@@ -232,7 +233,7 @@ export default {
   methods: {
     book: function () {
       this.$http.post("api/public/bookingsingle", {
-        bookingId: 2,
+        bookingId: this.client.bookingId,
         date: this.client.bookedDate,
         time: this.client.time,
         surfStyle: this.client.style.id,
@@ -248,7 +249,6 @@ export default {
       let timeIndex = this.sortedTimes.map(function (e) {return e.time}).indexOf(this.client.time);
       let time = this.sortedTimes[timeIndex];
       time.count = time.count - 1;
-      console.log(time.count + " " + time.id)
       this.$http.put("api/public/updatetimes",{id: time.id, newCount:time.count});
       router.push({name: "BookingConfirmation"});
     },
@@ -256,7 +256,8 @@ export default {
       router.push({name: "Homepage"})
     },
     toTop: function () {
-      this.$vuetify.goTo(0)
+      this.$vuetify.goTo(0);
+      this.client.bookingId = Math.floor(Math.random()*1000000)
     },
     submitDate: function () {
       this.client.bookedDate = this.date;
@@ -275,6 +276,7 @@ export default {
           .then(response => {
             this.times = response.data;
             let sortByDate = this.date;
+            this.client.bookedDate = this.date;
             this.sortedTimes = this.times.filter(function (e) {
               return (e.date === sortByDate)
             });

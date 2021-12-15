@@ -26,13 +26,17 @@
             </template>
             <v-date-picker
                 v-model="date"
+                v-on:change="sort()"
+                min="2022-05-01"
+                max="2022-08-31"
                 no-title
                 scrollable
                 width="340"
             >
               <div class="time-input">
                 <v-select
-                    :items="times"
+                    :items="sortedTimes"
+                    item-text="time"
                     label="See available times"
                     v-model="client.time"
                     :rules="[(v) => !!v || 'Field is required']"
@@ -44,16 +48,15 @@
                 <div class="d-flex justify-space-between">
                   <v-btn
                       text
-                      color="indigo darken-4"
+                      color="teal darken-3"
                       @click="menu = false"
                   >
                     Cancel
                   </v-btn>
                   <v-btn
                       text
-                      color="indigo darken-4"
+                      color="teal darken-3"
                       @click="$refs.menu.save(date)"
-                      v-on:click="submitDate()"
                   >
                     OK
                   </v-btn>
@@ -154,8 +157,8 @@
                 </div>
                 <v-list-item-subtitle>Date: {{ client.bookedDate }}</v-list-item-subtitle>
                 <v-list-item-subtitle>Time: {{ client.time }}</v-list-item-subtitle>
-                <v-list-item-subtitle>Full name: {{client.firstname}} {{client.lastname}}</v-list-item-subtitle>
-                <v-list-item-subtitle>Surf style: {{client.style.style }}</v-list-item-subtitle>
+                <v-list-item-subtitle>Full name: {{ client.firstname }} {{ client.lastname }}</v-list-item-subtitle>
+                <v-list-item-subtitle>Surf style: {{ client.style.style }}</v-list-item-subtitle>
                 <v-list-item-subtitle>Level: {{ client.level }}</v-list-item-subtitle>
                 <div v-if="client.wetsuit === true">
                   <v-list-item-subtitle>Require wetsuit: Yes</v-list-item-subtitle>
@@ -186,16 +189,17 @@ import router from "@/router";
 export default {
   name: "BookingSingle",
   data: () => ({
-    date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+    date: (new Date(new Date(2022, 4, 2) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
     menu: false,
     modal: false,
     menu2: false,
-    styles: [{style: "Traditional surf", price: 59.99, id:"1"}, {style: "Windsurf", price: 79.99, id:"2"}, {style: "Kitesurf", price: 89.99, id:"3"}],
+    styles: [],
     levels: ["Beginner", "Intermediate", "Advanced"],
     client: {
+      bookingId:"",
       bookedDate: "",
-      time:"",
-      style: {style: "", price: "", id:""},
+      time: "",
+      style: {style: "", price: "", id: ""},
       level: "",
       firstname: "",
       lastname: "",
@@ -222,14 +226,16 @@ export default {
     ],
     genders: ["Male", "Female"],
     total: "",
-    times: ["10:00:00", "11:00:00", "12:00:00"],
+    times: [],
+    sortedTimes: [],
   }),
+
   methods: {
     book: function () {
       this.$http.post("api/public/bookingsingle", {
-        bookingId: 2,
+        bookingId: this.client.bookingId,
         date: this.client.bookedDate,
-        time: "11:11:11",
+        time: this.client.time,
         surfStyle: this.client.style.id,
         firstName: this.client.firstname,
         lastName: this.client.lastname,
@@ -240,31 +246,76 @@ export default {
         height: this.client.height,
         email: this.client.email
       });
+      let timeIndex = this.sortedTimes.map(function (e) {return e.time}).indexOf(this.client.time);
+      let time = this.sortedTimes[timeIndex];
+      time.count = time.count - 1;
+      this.$http.put("api/public/updatetimes",{id: time.id, newCount:time.count});
       router.push({name: "BookingConfirmation"});
     },
     back: function () {
       router.push({name: "Homepage"})
     },
     toTop: function () {
-      this.$vuetify.goTo(0)
+      this.$vuetify.goTo(0);
+      this.client.bookingId = Math.floor(Math.random()*1000000)
     },
-    submitDate: function (){
+    submitDate: function () {
       this.client.bookedDate = this.date;
     },
+    getStyles: function () {
+      this.$http.get("api/public/getstyles")
+          .then(response => {
+            this.styles = response.data;
+          })
+          .catch(err => {
+            console.log(err);
+          })
+    },
+    getTimes: function () {
+      this.$http.get("api/public/gettimes")
+          .then(response => {
+            this.times = response.data;
+            let sortByDate = this.date;
+            this.client.bookedDate = this.date;
+            this.sortedTimes = this.times.filter(function (e) {
+              return (e.date === sortByDate)
+            });
+          })
+          .catch(err => {
+            console.log(err);
+          })
+    },
+    sort: function () {
+      this.submitDate();
+      let sortByDate = this.date;
+      this.sortedTimes = this.times.filter(function (e) {
+        return (e.date === sortByDate)
+      });
+      this.sortedTimes = this.sortedTimes.filter(function (e) {
+        return e.count > 0
+      });
+    }
 
-  },mounted() {
-    this.toTop()
+  }, mounted() {
+    this.toTop();
+    this.getStyles();
+    this.getTimes();
   }
 }
 </script>
 
 <style scoped>
-.back-btn{
+.back-btn {
   z-index: 2;
+  position: absolute;
+  top: 30px;
+  left: 30px;
 }
-.data-input-top{
-  margin: 15% 0 20% 25%;
+
+.data-input-top {
+  margin: 30% 0 20% 25%;
 }
+
 .data-input-view {
   margin: 5% 15%;
 }
@@ -276,16 +327,19 @@ export default {
 .booking-btn {
   text-align: center;
 }
+
 .time-input {
   display: block;
 }
-div >>> .v-card__actions{
+
+div >>> .v-card__actions {
   display: block;
 }
-.background-img{
+
+.background-img {
   position: absolute;
   top: 0;
-  left:0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;

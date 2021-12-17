@@ -13,8 +13,8 @@
           height="auto"
       >
         <v-container class="pa-5 drawer-custom">
-          <v-text-field v-model="newUserName"></v-text-field>
-          <v-text-field v-model="newUserPassword"></v-text-field>
+          <v-text-field v-model="newUserName" placeholder="Create User Name"></v-text-field>
+          <v-text-field v-model="newUserPassword" placeholder="Create Password"></v-text-field>
           <v-btn class="mt-3 teal darken-3 white--text" v-on:click="createNewAdminUser()">Create new</v-btn>
         </v-container>
       </v-navigation-drawer>
@@ -129,16 +129,16 @@
                             sm="6"
                             md="4"
                         >
-<!--                          <v-select-->
-<!--                              :items="style"-->
-<!--                              label="Style"-->
-<!--                              v-model="editedItem.surfStyle"-->
-<!--                              background-color="white"-->
-<!--                          ></v-select>-->
-                          <v-text-field
+                          <v-select
+                              :items="surfStyles"
+                              label="Style"
                               v-model="editedItem.surfStyle"
-                              label="Surf Style"
-                          ></v-text-field>
+                              background-color="white"
+                          ></v-select>
+                          <!--                          <v-text-field-->
+                          <!--                              v-model="editedItem.surfStyle"-->
+                          <!--                              label="Surf Style"-->
+                          <!--                          ></v-text-field>-->
                         </v-col>
 
                         <v-col
@@ -146,32 +146,16 @@
                             sm="6"
                             md="4"
                         >
-<!--                          <v-select-->
-<!--                            :items="levels"-->
-<!--                            label="Level"-->
-<!--                            v-model="editedItem.level"-->
-<!--                            background-color="white"-->
-<!--                          ></v-select>-->
-                          <v-text-field
-                              v-model="editedItem.level"
+                          <v-select
+                              :items="levels"
                               label="Level"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col
-                            cols="12"
-                            sm="6"
-                            md="4"
-                        >
-<!--                          <v-select-->
-<!--                              :items="wetsuit"-->
-<!--                              label="Require Wetsuit"-->
-<!--                              v-model="editedItem.wetsuit"-->
-<!--                              background-color="white"-->
-<!--                          ></v-select>-->
-                          <v-text-field
-                              v-model="editedItem.wetsuit"
-                              label="Require Wetsuit"
-                          ></v-text-field>
+                              v-model="editedItem.level"
+                              background-color="white"
+                          ></v-select>
+                          <!--                          <v-text-field-->
+                          <!--                              v-model="editedItem.level"-->
+                          <!--                              label="Level"-->
+                          <!--                          ></v-text-field>-->
                         </v-col>
                         <v-col
                             cols="12"
@@ -179,7 +163,23 @@
                             md="4"
                         >
                           <v-select
-                          :items="genders"
+                              :items="wetsuits"
+                              label="Require Wetsuit"
+                              v-model="editedItem.wetsuit"
+                              background-color="white"
+                          ></v-select>
+                          <!--                          <v-text-field-->
+                          <!--                              v-model="editedItem.wetsuit"-->
+                          <!--                              label="Require Wetsuit"-->
+                          <!--                          ></v-text-field>-->
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            sm="6"
+                            md="4"
+                        >
+                          <v-select
+                              :items="genders"
                               label="Gender"
                               v-model="editedItem.gender"
                               background-color="white"
@@ -272,11 +272,11 @@
             </v-icon>
           </template>
           <template v-slot:no-data>
-<!--            <v-btn-->
-<!--                color="teal darken-3 white&#45;&#45;text"-->
-<!--            >-->
-<!--              Reset-->
-<!--            </v-btn>-->
+            <!--            <v-btn-->
+            <!--                color="teal darken-3 white&#45;&#45;text"-->
+            <!--            >-->
+            <!--              Reset-->
+            <!--            </v-btn>-->
           </template>
         </v-data-table>
       </div>
@@ -334,6 +334,10 @@ export default {
       },
 
       genders: ["Male", "Female"],
+      levels: ["Beginner", "Intermediate", "Advanced"],
+      wetsuits: ["true", "false"],
+      surfStyles: [1, 2, 3],
+
       editedIndex: -1,
 
       editedItem: {
@@ -377,10 +381,6 @@ export default {
         {title: 'About', icon: 'mdi-forum'},
       ],
       answer: "",
-      levels: ["Beginner", "Intermediate", "Advanced"],
-      wetsuit: ["true", "false"],
-      style: [1, 2, 3],
-
     }
   },
   computed: {
@@ -469,11 +469,13 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        // console.log(this.editedIndex)
+        console.log(this.editedIndex)
         Object.assign(this.clients[this.editedIndex], this.editedItem)
-        // console.log(this.clients[this.editedIndex])
+        console.log(this.clients[this.editedIndex])
         let url = "api/editclient/" + this.clients[this.editedIndex].clientId
+        console.log(this.clients[this.editedIndex].clientId)
         this.$http.put(url, this.editedItem)
+        // console.log(this.editedItem)
             .then(response => this.answer = response.data)
 
       } else {
